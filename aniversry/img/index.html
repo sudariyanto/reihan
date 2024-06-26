@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      CodePen - CSS Heart Particle Effects [Inspired by Atticus Koya]
+    </title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Pacifico"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <style>
+    body {
+      font-family: "Pacifico", cursive;
+      background-color: #2b2d42;
+    }
+
+    .effect-text {
+      font-size: 50px;
+      color: #edf2f4;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+
+    .tiny-heart {
+      position: absolute;
+      opacity: 0;
+      background-color: #d90429;
+      box-shadow: 0px 0px 50px 4px rgba(239, 35, 60, 0.7);
+      animation: animated-heart infinite ease-in;
+    }
+    .tiny-heart:before,
+    .tiny-heart:after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #d90429;
+    }
+    .tiny-heart:before {
+      transform: translateX(-50%);
+    }
+    .tiny-heart:after {
+      transform: translateY(-50%);
+    }
+
+    @keyframes animated-heart {
+      0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(45deg);
+      }
+      50% {
+        opacity: 1;
+        transform: translate(0, -40%) rotate(45deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(0, -1000%) rotate(45deg);
+      }
+    }
+  </style>
+  <body>
+    <!-- partial:index.partial.html -->
+    <div class="effect-text">In love</div>
+    <!-- partial -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      $(function () {
+        // Get random number between 2 ranges
+        function randomNum(m, n) {
+          m = parseInt(m);
+          n = parseInt(n);
+          return Math.floor(Math.random() * (n - m + 1)) + m;
+        }
+
+        function heartAnimation() {
+          $this = $(".effect-text");
+          var heartCount = ($this.width() / 50) * 5;
+          for (var i = 0; i < heartCount; i++) {
+            var heartSize = randomNum(60, 120) / 10;
+            $this.append(
+              '<span class="tiny-heart" style="top: ' +
+                randomNum(40, 80) +
+                "%; left: " +
+                randomNum(0, 100) +
+                "%; width: " +
+                heartSize +
+                "px; height: " +
+                heartSize +
+                "px ; animation-delay: -" +
+                randomNum(0, 3) +
+                "s; animation-duration: " +
+                randomNum(2, 5) +
+                's"></span>'
+            );
+          }
+        }
+
+        heartAnimation();
+      });
+    </script>
+  </body>
+</html>
